@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     proxy: {
-      "/api": {
+      "/apppi": {
         target: "https://voice-agent-om22.onrender.com/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "")

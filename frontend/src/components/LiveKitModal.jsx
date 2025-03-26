@@ -15,6 +15,7 @@ const LiveKitModal = ({ setShowSupport }) => {
         `https://voice-agent-om22.onrender.com/getToken?name=${encodeURIComponent(userName)}`
       );
       const token = await response.text();
+      console.log("Tokeennnnnnnnnnnnnnnnnnnnn:..... ",token);
       setToken(token);
       setIsSubmittingName(false);
     } catch (error) {
