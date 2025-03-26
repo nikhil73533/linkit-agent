@@ -12,7 +12,7 @@ const LiveKitModal = ({ setShowSupport }) => {
     try {
       console.log("run")
       const response = await fetch(
-        `https://voice-agent-om22.onrender.com/getToken?name=${encodeURIComponent(userName)}`
+        `https://voice-agent-om22.onrender.com/getToken?name=${userName}`
       );
       const token = await response.text();
       console.log("Tokeennnnnnnnnnnnnnnnnnnnn:..... ",token);
