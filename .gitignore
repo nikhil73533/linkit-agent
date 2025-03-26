@@ -1,0 +1,7 @@
+ai/
+.vscode/
+__pycache__/
+.env
+auto_db.sqlite
+venv/
+node_modules/
