@@ -7,7 +7,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "http://localhost:5001",
+        target: "https://voice-agent-om22.onrender.com/",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, "")
       }
