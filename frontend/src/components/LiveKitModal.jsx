@@ -2,6 +2,8 @@ import { useState, useCallback } from "react";
 import { LiveKitRoom, RoomAudioRenderer } from "@livekit/components-react";
 import "@livekit/components-styles";
 import SimpleVoiceAssistant from "./SimpleVoiceAssistant";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const LiveKitModal = ({ setShowSupport }) => {
   const [isSubmittingName, setIsSubmittingName] = useState(true);
@@ -9,17 +11,28 @@ const LiveKitModal = ({ setShowSupport }) => {
   const [token, setToken] = useState(null);
 
   const getToken = useCallback(async (userName) => {
+    const loadingToastId = toast.loading("Fetching token...");
     try {
-      console.log("run")
       const response = await fetch(
         `https://voice-agent-om22.onrender.com/getToken?name=${userName}`
       );
       const token = await response.text();
-      console.log("Tokeennnnnnnnnnnnnnnnnnnnn:..... ",token);
       setToken(token);
       setIsSubmittingName(false);
+      toast.update(loadingToastId, {
+        render: "Token received successfully!",
+        type: "success",
+        isLoading: false,
+        autoClose: 3000,
+      });
     } catch (error) {
       console.error(error);
+      toast.update(loadingToastId, {
+        render: "Failed to fetch token. Please try again.",
+        type: "error",
+        isLoading: false,
+        autoClose: 3000,
+      });
     }
   }, []);
 
@@ -33,10 +46,11 @@ const LiveKitModal = ({ setShowSupport }) => {
   return (
     <div className="modal-overlay">
       <div className="modal-content">
+        <ToastContainer position="top-right" autoClose={3000} />
         <div className="support-room">
           {isSubmittingName ? (
             <form onSubmit={handleNameSubmit} className="name-form">
-              <h2>Enter your name to connect Agent</h2>
+              <h2>Enter your name to connect with an agent</h2>
               <input
                 type="text"
                 value={name}
